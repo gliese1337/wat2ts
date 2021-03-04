@@ -13,7 +13,9 @@
     "lint": "eslint . --ext .ts --fix",
     "prepare": "npm run build"
   },
-  "bin" : { "wat2ts" : "./bin/wat2ts.js" },
+  "bin": {
+    "wat2ts": "bin/wat2ts.js"
+  },
   "keywords": [
     "wasm",
     "webassembly",
@@ -31,5 +33,13 @@
   },
   "dependencies": {
     "wabt": "^1.0.20"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gliese1337/wat2ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gliese1337/wat2ts/issues"
+  },
+  "homepage": "https://github.com/gliese1337/wat2ts#readme"
 }
