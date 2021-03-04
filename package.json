@@ -1,6 +1,6 @@
 {
   "name": "wat2ts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Convert WebAssembly Text Format source files to importable TypeScript modules.",
   "main": "bin/index.js",
   "files": [

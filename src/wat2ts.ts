@@ -1,13 +1,13 @@
 import fs from 'fs';
 import { join } from 'path';
-import { compile } from ".";
+import { compile, compile_wasm } from ".";
 
-const extrgx = /\.wat$/;
+const extrgx = /\.wa(t|sm)$/;
 
 async function compileFile(path: string) {
   const src = await new Promise<Buffer>(res => fs.readFile(path, (_, src) => res(src)));
   const name = path.replace(extrgx, '.ts');
-  const ts_src = await compile(src);
+  const ts_src = await (path.endsWith('.wat') ? compile : compile_wasm)(src);
   return new Promise(res => {
     fs.writeFile(name, ts_src, res);
   });
@@ -18,7 +18,7 @@ async function compileDir(dir: string) {
     const fullPath = join(dir, file);
     if (fs.statSync(fullPath).isDirectory()){
       await compileDir(fullPath);
-    } else if (fullPath.endsWith('.wat')) {
+    } else if (extrgx.test(file)) {
       await compileFile(fullPath);
     }
   }
@@ -28,7 +28,7 @@ function wat2ts(path: string) {
   if (fs.statSync(path).isDirectory()){
     return compileDir(path);
   }
-  if (path.endsWith('.wat')) {
+  if (extrgx.test(path)) {
     return compileFile(path);
   }
   return Promise.resolve();

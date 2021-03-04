@@ -61,13 +61,18 @@ export default async function(): Promise<ModuleExports> {
 }
 `;
 
-export async function compile(src: Uint8Array | string) {
-  const WABT = await wabt();
-  const mod = WABT.parseWat('', src);
-  const bin = mod.toBinary({}).buffer;
+export async function compile_wasm(bin: Uint8Array) {
   const inst = await WebAssembly.instantiate(bin);
   const typeDec = genTypes(inst.instance);
   return typeDec + '\n\n' +
     'const hex = "' + Buffer.from(bin).toString('hex') + '";\n' +
     loader;
 }
+
+export async function compile(src: Uint8Array | string) {
+  const WABT = await wabt();
+  const mod = WABT.parseWat('', src);
+  return compile_wasm(mod.toBinary({}).buffer);
+}
+
+export const compile_wat = compile;
