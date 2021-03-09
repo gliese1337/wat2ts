@@ -1,7 +1,7 @@
 {
   "name": "wat2ts",
-  "version": "0.0.2",
-  "description": "Convert WebAssembly Text Format source files to importable TypeScript modules.",
+  "version": "0.0.3",
+  "description": "Convert WebAssembly Text Format source files or compiled WebAssembly modules to importable TypeScript modules.",
   "main": "bin/index.js",
   "files": [
     "bin/index.js",
@@ -28,10 +28,10 @@
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "eslint": "^7.15.0",
-    "mocha": "^8.2.1",
     "typescript": "^3.9.9"
   },
   "dependencies": {
+    "@webassemblyjs/wasm-parser": "^1.11.0",
     "wabt": "^1.0.20"
   },
   "repository": {
